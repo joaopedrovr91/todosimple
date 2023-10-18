@@ -17,9 +17,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
-
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
 
@@ -30,7 +27,6 @@ public class UserService {
     public User create(User obj) {
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
 
@@ -39,5 +35,14 @@ public class UserService {
         User newObj = findById(obj.getId());
         newObj.setPassword(obj.getPassword());
         return this.userRepository.save(newObj);
+    }
+
+    public void delete(Long id) {
+        findById(id);
+        try {
+            this.userRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Não é possivel excluir pois há entidades relacionadas!");
+        }
     }
 }
