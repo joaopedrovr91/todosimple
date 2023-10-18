@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joaopedro.todosimple.models.User;
-import com.joaopedro.todosimple.repositories.TaskRepository;
 import com.joaopedro.todosimple.repositories.UserRepository;
 
 @Service
